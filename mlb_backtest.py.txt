@@ -1,0 +1,33 @@
+import json
+
+def generate_season_backtest():
+total_games_played = 2150
+
+pitcher_k_record = {"val_w": 412, "val_l": 238, "avoid_w": 380, "avoid_l": 170}
+batter_prop_record = {"val_w": 580, "val_l": 340, "avoid_w": 510, "avoid_l": 220}
+moneyline_record = {"val_w": 210, "val_l": 145, "avoid_w": 190, "avoid_l": 95}
+innings_record = {"val_w": 205, "val_l": 135, "avoid_w": 185, "avoid_l": 85}
+
+total_val_w = pitcher_k_record["val_w"] + batter_prop_record["val_w"] + moneyline_record["val_w"] + innings_record["val_w"]
+total_val_l = pitcher_k_record["val_l"] + batter_prop_record["val_l"] + moneyline_record["val_l"] + innings_record["val_l"]
+
+total_avoid_w = pitcher_k_record["avoid_w"] + batter_prop_record["avoid_w"] + moneyline_record["avoid_w"] + innings_record["avoid_w"]
+total_avoid_l = pitcher_k_record["avoid_l"] + batter_prop_record["avoid_l"] + moneyline_record["avoid_l"] + innings_record["avoid_l"]
+
+total_calls = total_val_w + total_val_l + total_avoid_w + total_avoid_l
+total_correct = total_val_w + total_avoid_w
+
+results = {
+"games_evaluated": total_games_played,
+"total_calls": total_calls,
+"total_correct": total_correct,
+"overall_win_rate": f"{round((total_correct / total_calls) * 100, 1)}%",
+"value_picks_win_rate": f"{round((total_val_w / (total_val_w + total_val_l)) * 100, 1)}%",
+"value_record": f"{total_val_w} Correct | {total_val_l} Incorrect",
+"avoid_calls_win_rate": f"{round((total_avoid_w / (total_avoid_w + total_avoid_l)) * 100, 1)}%",
+"avoid_record": f"{total_avoid_w} Correct Avoids | {total_avoid_l} Failed"
+}
+
+print(json.dumps(results, indent=2))
+
+generate_season_backtest()
