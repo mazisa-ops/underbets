@@ -11,16 +11,13 @@ runs-on: ubuntu-latest
 steps:
 - name: Checkout Repository
 uses: actions/checkout@v3
-
-- name: Set up Python
+-name: Set up Python
 uses: actions/setup-python@v4
 with:
 python-version: "3.x"
-
-- name: Run Backtest
+-name: Run Backtest
 run: python3 mlb_backtest.py
-
-- name: Commit Stats
+-name: Commit Stats
 run: |
 git config --local user.email "action@github.com"
 git config --local user.name "GitHub Action"
@@ -43,16 +40,13 @@ runs-on: ubuntu-latest
 steps:
 - name: Checkout Repository
 uses: actions/checkout@v3
-
-- name: Set up Python
+-name: Set up Python
 uses: actions/setup-python@v4
 with:
 python-version: "3.x"
-
-- name: Run Backtest
+-name: Run Backtest
 run: python3 mlb_backtest.py
-
-- name: Commit Stats
+-name: Commit Stats
 
 run: |
 git config --local user.email "action@github.com"
