@@ -9,14 +9,18 @@ jobs:
 update-stats:
 runs-on: ubuntu-latest
 steps:
-- uses: actions/checkout@v3
+- name: Check out repo
+uses: actions/checkout@v3
+
 - name: Set up Python
 uses: actions/setup-python@v4
 with:
 python-version: "3.x"
-- name: Run Script
+
+- name: Run Backtest Script
 run: python3 mlb_backtest.py
-- name: Commit and Push Changes
+
+- name: Commit and Push Updated Stats
 run: |
 git config --local user.email "action@github.com"
 git config --local user.name "GitHub Action"
