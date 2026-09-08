@@ -1,29 +1,24 @@
 name: Daily Stats Update
 
 on:
-schedule:
-- cron: "0 6 * * *"
-workflow_dispatch:
+ schedule:
+ - cron: "0 6 * * *"
+ workflow_dispatch:
 
 jobs:
-update-stats:
-runs-on: ubuntu-latest
-steps:
-- name: Check out repo
-uses: actions/checkout@v3
-
-- name: Set up Python
-uses: actions/setup-python@v4
-with:
-python-version: "3.x"
-
-- name: Run Backtest Script
-run: python3 mlb_backtest.py
-
-- name: Commit and Push Updated Stats
-run: |
-git config --local user.email "action@github.com"
-git config --local user.name "GitHub Action"
-git add stats.json
-git commit -m "Auto-update season stats" || exit 0
-git push
+ update-stats:
+ runs-on: ubuntu-latest
+ steps:
+ - uses: actions/checkout@v3
+ - uses: actions/setup-python@v4
+ with:
+ python-version: "3.x"
+ - name: Run Backtest
+ run: python3 mlb_backtest.py
+ - name: Commit Stats
+ run: |
+ git config --local user.email "action@github.com"
+ git config --local user.name "GitHub Action"
+ git add stats.json
+ git commit -m "Auto-update season stats" || exit 0
+ git push
