@@ -11,46 +11,19 @@ runs-on: ubuntu-latest
 steps:
 - name: Checkout Repository
 uses: actions/checkout@v3
--name: Set up Python
+
+  - name: Set up Python
 uses: actions/setup-python@v4
 with:
 python-version: "3.x"
--name: Run Backtest
+
+  - name: Run Backtest
 run: python3 mlb_backtest.py
--name: Commit Stats
-run: |
-git config--local user.email "action@github.com"
-git config --local user.name "GitHub Action"
-git add stats.json
-git commit -m "Auto-update season stats" || exit 0
-git push
 
-
-On Tue, Sep 8, 2026 at 1:31 PM Maxwell Zisa <mazisa@go.olemiss.edu> wrote:
-name: Daily Stats Update
-
-on:
-schedule:
-- cron: "0 6 * * *"
-workflow_dispatch:
-
-jobs:
-update-stats:
-runs-on: ubuntu-latest
-steps:
-- name: Checkout Repository
-uses: actions/checkout@v3
--name: Set up Python
-uses: actions/setup-python@v4
-with:
-python-version: "3.x"
--name: Run Backtest
-run: python3 mlb_backtest.py
--name: Commit Stats
-
-run: |
-git config --local user.email "action@github.com"
-git config --local user.name "GitHub Action"
-git add stats.json
-git commit -m "Auto-update season stats" || exit 0
+- name: Commit Stats
+  run: |
+  git config --local user.email "action@github.com"
+  git config --local user.name "GitHub Action"
+  git add stats.json
+  git commit -m "Auto-update season stats" || exit 0
 git push
